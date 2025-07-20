@@ -36,6 +36,17 @@ document.getElementById("transactionForm").addEventListener("submit", async (e) 
   e.preventDefault();
   const recipient = document.getElementById("recipient").value;
   const amount = document.getElementById("amount").value;
+  const errorDiv = document.getElementById("transactionError");
+  errorDiv.textContent = "";
+
+  if (!validateRecipient(recipient)) {
+    errorDiv.textContent = "Recipient must be 3-30 chars, letters/numbers/space/dot only.";
+    return;
+  }
+  if (!validateAmount(amount)) {
+    errorDiv.textContent = "Amount must be a positive number.";
+    return;
+  }
 
   const response = await fetch(`${API_BASE}/api/transaction`, {
     method: "POST",
@@ -153,4 +164,20 @@ async function fetchTransactions() {
     });
     document.getElementById("transactionsContainer").style.display = "block";
   }
+}
+
+function validateUsername(username) {
+  return /^[a-zA-Z0-9]{3,30}$/.test(username);
+}
+function validatePassword(password) {
+  return password.length >= 6 && password.length <= 100;
+}
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function validateRecipient(recipient) {
+  return /^[a-zA-Z0-9 .]{3,30}$/.test(recipient.trim());
+}
+function validateAmount(amount) {
+  return /^\d+$/.test(amount) && Number(amount) > 0;
 }
