@@ -1,13 +1,14 @@
 let authToken = null;
 let pendingUsername = null;
 let pendingPassword = null;
+const API_BASE = "https://your-railway-app-name.up.railway.app"; // Replace with your actual Railway app URL
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const response = await fetch("http://localhost:8080/api/auth/login", {
+  const response = await fetch(`${API_BASE}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
@@ -36,7 +37,7 @@ document.getElementById("transactionForm").addEventListener("submit", async (e) 
   const recipient = document.getElementById("recipient").value;
   const amount = document.getElementById("amount").value;
 
-  const response = await fetch("http://localhost:8080/api/transaction", {
+  const response = await fetch(`${API_BASE}/api/transaction`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,7 +58,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   const password = document.getElementById("regPassword").value;
   const email = document.getElementById("regEmail").value;
 
-  const response = await fetch("http://localhost:8080/api/register", {
+  const response = await fetch(`${API_BASE}/api/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password, email }),
@@ -73,7 +74,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
   // If registration was successful, log in automatically and show user info
   if (result === "Registration successful") {
-    const loginResponse = await fetch("http://localhost:8080/api/auth/login", {
+    const loginResponse = await fetch(`${API_BASE}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -119,7 +120,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 
 async function fetchUserDetails() {
   if (!authToken) return;
-  const response = await fetch("http://localhost:8080/api/auth/user", {
+  const response = await fetch(`${API_BASE}/api/auth/user`, {
     method: "GET",
     headers: {
       "Authorization": "Bearer " + authToken
@@ -135,7 +136,7 @@ async function fetchUserDetails() {
 
 async function fetchTransactions() {
   if (!authToken) return;
-  const response = await fetch("http://localhost:8080/api/transaction", {
+  const response = await fetch(`${API_BASE}/api/transaction`, {
     method: "GET",
     headers: {
       "Authorization": "Bearer " + authToken
