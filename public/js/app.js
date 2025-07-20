@@ -1,7 +1,7 @@
 let authToken = null;
 let pendingUsername = null;
 let pendingPassword = null;
-const API_BASE = "https://your-railway-app-name.up.railway.app"; // Replace with your actual Railway app URL
+const API_BASE = "https://secure-app-production-0d50.up.railway.app"; // Replace with your actual Railway app URL
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
