@@ -38,6 +38,7 @@ exports.getUserTransactions = (req, res) => {
     "SELECT recipient, amount, created_at FROM transactions WHERE user_id = ? ORDER BY created_at DESC",
     [userId],
     (err, results) => {
+      console.error('DB INSERT error:', err);  
       if (err) return res.status(500).send("An error occurred");
       res.json(results);
     }
