@@ -32,6 +32,7 @@ exports.register = (req, res) => {
       'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
       [safeUsername, hashedPassword, safeEmail, role || 'user'],
       (err) => {
+        console.error('DB INSERT error:', err);  
         if (err) return res.status(500).send('Registration failed');
         res.status(201).send('Registration successful');
       }
