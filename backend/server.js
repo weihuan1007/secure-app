@@ -7,7 +7,13 @@ const transactionRoutes = require('./routes/transaction');
 const registerRoutes = require('./routes/register');
 
 const app = express();
-app.use(cors());
+const allowedOrigins = ['https://secure-app-production-0d50.up.railway.app']; // Replace with your actual frontend URL
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.static('public'));
 app.use(session({
@@ -15,7 +21,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false, // Set to true with HTTPS
+    secure: true, // Set to true with HTTPS
     httpOnly: true,
     maxAge: 15 * 60 * 1000 // 15 minutes
   }
