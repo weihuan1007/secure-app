@@ -11,11 +11,8 @@ const allowedOrigins = ['https://secure-app-production-0d50.up.railway.app']; //
 
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true
 }));
-app.options('*', cors()); // Allow preflight requests
 
 app.use(express.json());
 app.use(express.static('public'));
